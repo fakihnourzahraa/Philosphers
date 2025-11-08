@@ -1,0 +1,45 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/08 12:08:50 by nfakih            #+#    #+#             */
+/*   Updated: 2025/11/08 15:21:31 by nfakih           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef PHILO_H
+#define PHILO_H
+
+#include "stdio.h"
+#include "unistd.h"
+#include <pthread.h>
+#include <sys/time.h>
+# include <string.h>
+# include <stdbool.h>
+
+typedef struct s_philospher
+{
+	bool			alive;
+	int				pid;
+	int				ate;
+	pthread_t		thread;
+	pthread_mutex_t *left;
+	pthread_mutex_t	*right;
+	t_rules			rules;
+}	t_philospher;
+
+typedef struct s_rules
+{
+	int			philos;
+	long long	t_to_die;
+	long long	t_to_eat;
+	long long	t_to_sleep;
+	int			to_eat;
+	long long	t_start;
+	pthread_t	monitor;
+}	t_rules;
+
+#endif
