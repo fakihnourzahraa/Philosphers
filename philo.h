@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 12:08:50 by nfakih            #+#    #+#             */
-/*   Updated: 2025/11/08 15:21:31 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/11/14 16:02:05 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,19 @@
 # include <string.h>
 # include <stdbool.h>
 
+typedef struct s_rules
+{
+	int			philos;
+	long long	t_to_die;
+	long long	t_to_eat;
+	long long	t_to_sleep;
+	int			to_eat;
+	long long	t_start;
+	int			must_eat;
+	pthread_t	monitor;
+}	t_rules;
+
+
 typedef struct s_philospher
 {
 	bool			alive;
@@ -31,15 +44,6 @@ typedef struct s_philospher
 	t_rules			rules;
 }	t_philospher;
 
-typedef struct s_rules
-{
-	int			philos;
-	long long	t_to_die;
-	long long	t_to_eat;
-	long long	t_to_sleep;
-	int			to_eat;
-	long long	t_start;
-	pthread_t	monitor;
-}	t_rules;
+int	ft_atoi(const char *nptr);
 
 #endif

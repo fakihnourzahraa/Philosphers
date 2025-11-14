@@ -6,11 +6,11 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 12:59:34 by nfakih            #+#    #+#             */
-/*   Updated: 2025/05/30 15:34:25 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/11/14 15:47:23 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "philo.h"
 
 static int	findbase(char *nptr)
 {
