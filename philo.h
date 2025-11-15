@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 12:08:50 by nfakih            #+#    #+#             */
-/*   Updated: 2025/11/15 14:53:37 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/11/15 15:34:34 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@
 #include <sys/time.h>
 # include <string.h>
 # include <stdbool.h>
-
+#include "stdlib.h"
+typedef struct s_philospher t_philospher;
 typedef struct s_rules
 {
 	int				num;
@@ -30,7 +31,7 @@ typedef struct s_rules
 	long long		t_start;
 	int				must_eat;
 	pthread_t		monitor;
-	t_philospher	philos[];
+	t_philospher	**philos;
 }	t_rules;
 
 

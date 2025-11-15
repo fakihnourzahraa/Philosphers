@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 15:47:09 by nfakih            #+#    #+#             */
-/*   Updated: 2025/11/15 15:18:59 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/11/15 15:36:08 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,25 +38,28 @@ int	fill_in(t_rules *in, char **argv)
 }
 
 
-t_philospher	new_philo(t_rules in, int i)
+t_philospher	*new_philo(t_rules in, int i)
 {
-	t_philospher	philo;
-	t_rules			rules;
+	t_philospher	*philo;
+	t_rules			*rules;
 	
-	philo.index = i;
-	philo.alive = true;
-	philo.ate = false;
-	philo.left = NULL;
-	philo.right = NULL;
-	philo.rules = NULL;
-	philo.thread = NULL;
-	rules.monitor = in.monitor;
-	rules.must_eat = in.must_eat;
-	rules.num = in.num;
-	rules.t_start = in.t_start;
-	rules.t_to_die = in.t_to_die;
-	rules.t_to_eat = in.t_to_eat;
-	rules.t_to_sleep = in.t_to_sleep;
+	philo = malloc(sizeof(t_philospher));
+	philo->index = i;
+	philo->alive = true;
+	philo->ate = false;
+	philo->left = NULL;
+	philo->right = NULL;
+	philo->rules = NULL;
+	philo->thread = NULL;
+	rules = malloc(sizeof(t_rules));
+	rules->monitor = in.monitor;
+	rules->must_eat = in.must_eat;
+	rules->num = in.num;
+	rules->t_start = in.t_start;
+	rules->t_to_die = in.t_to_die;
+	rules->t_to_eat = in.t_to_eat;
+	rules->t_to_sleep = in.t_to_sleep;
+	philo->rules = rules;
 	return (philo);
 }
 
@@ -69,23 +72,24 @@ void	init_philo(t_philospher *philos[], t_rules in)
 	num = in.num;
 	while (i < num)
 	{
-		(*philos)[i] = new_philo(in, i);
+		philos[i] = new_philo(in, i);
 		i++;
 	}
 }
 
-t_rules	init_in(t_rules *in, char **argv)
+t_rules	*init_in(char **argv)
 {
 	pthread_t id;
-	t_rules *in;
+	t_rules	 *in;
 
 	in = malloc(sizeof(t_rules));
-	in->num = NULL;
-	in->t_to_die = NULL;
-	in->t_to_eat =	NULL;
-	in->t_to_sleep = NULL;
-	in->t_start = NULL;
-	in->must_eat = NULL;
+	in->num = 0;
+	in->t_to_die = 0;
+	in->t_to_eat = 0;
+	in->t_to_sleep = 0;
+	in->t_start = 0;
+	in->must_eat = 0;
+	return (in);
 	//in->monitor = pthread_create(&id, 
 }
 
@@ -102,7 +106,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 6 && argc != 5 )
 		return (1);
-	init_in(in, argv);
+	in = init_in(argv);
 	fill_in(in, argv);
 	philo(in);
 	return(0);
