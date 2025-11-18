@@ -1,7 +1,8 @@
-# Philosphers
+# philosopherss
 -> create mutexes
 -> create threads
 -> join threads
+-> hardcode single case
 
 Thread 1: Lock fork_mutex
 Thread 1: Read fork_status (available)

@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 12:08:50 by nfakih            #+#    #+#             */
-/*   Updated: 2025/11/15 15:34:34 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/11/18 18:58:28 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <string.h>
 # include <stdbool.h>
 #include "stdlib.h"
+
 typedef struct s_philospher t_philospher;
 typedef struct s_rules
 {
@@ -30,8 +31,10 @@ typedef struct s_rules
 	int				to_eat;
 	long long		t_start;
 	int				must_eat;
+	long long		start_time;
 	pthread_t		monitor;
 	t_philospher	**philos;
+	pthread_mutex_t *forks;
 }	t_rules;
 
 
@@ -47,6 +50,6 @@ typedef struct s_philospher
 	t_rules			*rules;
 }	t_philospher;
 
-int	ft_atoi(const char *nptr);
-
+int		ft_atoi(const char *nptr);
+void	philos_routine(t_philospher **philos);
 #endif
