@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 12:08:50 by nfakih            #+#    #+#             */
-/*   Updated: 2025/11/18 18:58:28 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/11/21 18:26:21 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <stdbool.h>
 #include "stdlib.h"
 
-typedef struct s_philospher t_philospher;
+typedef struct s_philospher t_philosophers;
 typedef struct s_rules
 {
 	int				num;
@@ -33,7 +33,7 @@ typedef struct s_rules
 	int				must_eat;
 	long long		start_time;
 	pthread_t		monitor;
-	t_philospher	**philos;
+	t_philosophers	**philos;
 	pthread_mutex_t *forks;
 }	t_rules;
 
@@ -48,8 +48,8 @@ typedef struct s_philospher
 	pthread_mutex_t *left;
 	pthread_mutex_t	*right;
 	t_rules			*rules;
-}	t_philospher;
+}	t_philosophers;
 
 int		ft_atoi(const char *nptr);
-void	philos_routine(t_philospher **philos);
+void	philos_routine(t_philosophers **philos);
 #endif

@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 15:47:09 by nfakih            #+#    #+#             */
-/*   Updated: 2025/11/18 19:05:31 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/11/21 18:34:46 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void print_forks(t_rules *rules) {
 }
 
 // Function to print philosopher fork assignments
-void print_philosophers_forks(t_philospher *philos, int num_philos) {
+void print_philosophers_forks(t_philosophers *philos, int num_philos) {
     printf("\n=== PHILOSOPHER FORK ASSIGNMENTS ===\n");
     
     for (int i = 0; i < num_philos; i++) {
@@ -41,7 +41,7 @@ void print_philosophers_forks(t_philospher *philos, int num_philos) {
 }
 
 // Function to verify fork assignments are correct
-void verify_fork_assignments(t_philospher *philos, t_rules *rules) {
+void verify_fork_assignments(t_philosophers *philos, t_rules *rules) {
     printf("\n=== FORK ASSIGNMENT VERIFICATION ===\n");
     
     bool all_correct = true;
@@ -90,7 +90,7 @@ void print_table_visual(t_rules *rules) {
 }
 
 // Function to test fork sharing between adjacent philosophers
-void print_fork_sharing(t_philospher *philos, int num_philos) {
+void print_fork_sharing(t_philosophers *philos, int num_philos) {
     printf("\n=== FORK SHARING VERIFICATION ===\n");
     
     for (int i = 0; i < num_philos; i++) {
@@ -125,7 +125,7 @@ void print_rules(t_rules *rules)
 }
 
 // Function to print a single philosopher
-void print_philosophers(t_philospher *philo, int index)
+void print_philosophers(t_philosophers *philo, int index)
 {
     printf("--- Philosopher %d ---\n", index);
     printf("Index: %d\n", philo->index);
@@ -196,7 +196,7 @@ int	fill_in(t_rules *in, char **argv)
 	return (1);
 }
 
-t_philospher	*new_philo(t_rules in, int i, t_philospher *philo)
+t_philosophers	*new_philo(t_rules in, int i, t_philosophers *philo)
 {
 	t_rules			*rules;
 	
@@ -218,26 +218,28 @@ t_philospher	*new_philo(t_rules in, int i, t_philospher *philo)
 	return (philo);
 }
 
-t_philospher	*init_philo(t_rules in)
+t_philosophers	*init_philo(t_rules *old)
 {
 	int			i;
 	int			j;
-	t_philospher *philos;
+	t_philosophers *philos;
 	int			num;
+	t_rules		*in;
 
 	i = 0;
+	in = malloc(sizeof(t_rules));
 	j = 0;
-	num = in.num;
-	philos = malloc(sizeof(t_philospher) * num);
+	num = old->num;
+	philos = malloc(sizeof(t_philosophers) * num);
 	while (i < num)
 	{
-		new_philo(in, i, &(philos)[i]);
+		new_philo(*in, i, &(philos)[i]);
 		i++;
 	}
 	while (j < num)
 	{
-		philos[j].left = &(in.forks)[j];
-		philos[j].right = &(in.forks)[(j + 1) % num];
+		philos[j].left = &(in->forks)[j];
+		philos[j].right = &(in->forks)[(j + 1) % num];
 		j++;
 	}
 	return (philos);
@@ -262,42 +264,28 @@ t_rules	*init_in(char **argv)
 
 void philo(t_rules *in)
 {
-    t_philospher	*philos;
+    t_philosophers	*philos;
 
-    philos = init_philo(*in);
+    philos = init_philo(in);
 	//philo_routine(&philos);
 }
 
-// int	main(int argc, char **argv)
-// {
-// 	t_rules *in;
-
-// 	if (argc != 6 && argc != 5 )
-// 		return (1);
-// 	in = init_in(argv);
-// 	fill_in(in, argv);
-// 	philo(in);
-// 	return(0);
-// }
-
-// Modified main function with fork debugging
 int main(int argc, char **argv)
 {
 	t_rules			*in;
-	t_philospher	*philos;
+	t_philosophers	**philos;
 
     if (argc != 6 && argc != 5)
         return (1);
     in = init_in(argv);
     if (!fill_in(in, argv))
         return (1);
-    
     printf("\nRules parsed successfully:\n");
-    printf("  num: %d\n", in->num);
-    printf("  t_to_die: %lld\n", in->t_to_die);
-    printf("  t_to_eat: %lld\n", in->t_to_eat);
-    printf("  t_to_sleep: %lld\n", in->t_to_sleep);
-    printf("  must_eat: %d\n", in->must_eat);
-    philos = init_philo(*in);
+    printf("num: %d\n", in->num);
+    printf("t_to_die: %lld\n", in->t_to_die);
+    printf("t_to_eat: %lld\n", in->t_to_eat);
+    printf("t_to_sleep: %lld\n", in->t_to_sleep);
+    printf("must_eat: %d\n", in->must_eat);
+    philos = init_philo(in);
     return (0);
 }
