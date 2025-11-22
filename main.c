@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 15:47:09 by nfakih            #+#    #+#             */
-/*   Updated: 2025/11/21 18:34:46 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/11/22 15:17:24 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,7 +198,7 @@ int	fill_in(t_rules *in, char **argv)
 
 t_philosophers	*new_philo(t_rules in, int i, t_philosophers *philo)
 {
-	t_rules			*rules;
+	t_rules	*rules;
 	
 	philo->index = i;
 	philo->alive = true;
@@ -206,41 +206,32 @@ t_philosophers	*new_philo(t_rules in, int i, t_philosophers *philo)
 	philo->left = NULL;
 	philo->right = NULL;
 	philo->rules = NULL;
-	//philo->thread = NULL;
-	philo->rules = malloc(sizeof(t_rules));
-	philo->rules->monitor = in.monitor;
-	philo->rules->must_eat = in.must_eat;
-	philo->rules->num = in.num;
-	philo->rules->t_start = in.t_start;
-	philo->rules->t_to_die = in.t_to_die;
-	philo->rules->t_to_eat = in.t_to_eat;
-	philo->rules->t_to_sleep = in.t_to_sleep;
 	return (philo);
 }
 
-t_philosophers	*init_philo(t_rules *old)
+t_philosophers	**init_philo(t_rules *old)
 {
-	int			i;
-	int			j;
-	t_philosophers *philos;
-	int			num;
-	t_rules		*in;
+	int				i;
+	t_philosophers **philos;
+	int				num;
+	t_rules			*in;
 
 	i = 0;
 	in = malloc(sizeof(t_rules));
-	j = 0;
 	num = old->num;
-	philos = malloc(sizeof(t_philosophers) * num);
+	*philos = malloc(sizeof(t_philosophers *) * num);
 	while (i < num)
 	{
-		new_philo(*in, i, &(philos)[i]);
+		new_philo(*in, i, philos[i]);
+		philos[i]->rules = old;
 		i++;
 	}
-	while (j < num)
+	i = 0;
+	while (i < num)
 	{
-		philos[j].left = &(in->forks)[j];
-		philos[j].right = &(in->forks)[(j + 1) % num];
-		j++;
+		philos[i]->left = &(in->forks)[i];
+		philos[i]->right = &(in->forks)[(i + 1) % num];
+		i++;
 	}
 	return (philos);
 }
@@ -259,15 +250,28 @@ t_rules	*init_in(char **argv)
 	in->must_eat = 0;
 	return (in);
 	(void)argv;
-	//in->monitor = pthread_create(&id, 
 }
 
 void philo(t_rules *in)
 {
-    t_philosophers	*philos;
+    t_philosophers	**philos;
+	int				i;
+	int				num;
 
+	num = in->num;
     philos = init_philo(in);
-	//philo_routine(&philos);
+	i = 0;
+	if (num == 0)
+	{
+		pthread_create(&philos[i]->thread, NULL, philos_routine, &philos[i]);
+	}
+	while (i < num)
+	{
+		pthread_create(&philos[i]->thread, NULL, philos_routine, &philos[i]); 
+		i++;
+	}
+	pthread()
+	philo_routine(&philos);
 }
 
 int main(int argc, char **argv)

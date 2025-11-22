@@ -6,20 +6,32 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/15 14:55:36 by nfakih            #+#    #+#             */
-/*   Updated: 2025/11/21 18:26:21 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/11/22 15:03:22 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "philo.h"
 
-void	philos_routine(t_philosophers **philos)
+void	take_forks(t_philosophers **philos)
 {
-	while (1)
-	{
-		think(philos);
-		take_forks(philos);
-		eat(philos);
-		put_down_forks(philos);
-		sleep_philo(philos);
-	}
+
+}
+
+void	think(t_philosophers *philo)
+{
+	
+}
+
+void	*philos_routine(void *arg)
+{
+	t_philosophers *philo;
+
+	philo = (t_philosophers *)arg;
+
+	think(philo);
+	take_forks(philo);
+	eat(philo);
+	put_down_forks(philo);
+	sleep_philo(philo);
+
 }

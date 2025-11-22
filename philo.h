@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 12:08:50 by nfakih            #+#    #+#             */
-/*   Updated: 2025/11/21 18:26:21 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/11/22 15:09:17 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ typedef struct s_rules
 	long long		t_start;
 	int				must_eat;
 	long long		start_time;
+	pthread_mutex_t	print;
+	pthread_mutex_t	death;
 	pthread_t		monitor;
 	t_philosophers	**philos;
 	pthread_mutex_t *forks;
@@ -51,5 +53,5 @@ typedef struct s_philospher
 }	t_philosophers;
 
 int		ft_atoi(const char *nptr);
-void	philos_routine(t_philosophers **philos);
+void	*philos_routine(void *arg);
 #endif
