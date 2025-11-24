@@ -6,20 +6,20 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 12:08:50 by nfakih            #+#    #+#             */
-/*   Updated: 2025/11/24 12:05:59 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/11/24 12:26:19 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
-#define PHILO_H
+# define PHILO_H
 
-#include "stdio.h"
-#include "unistd.h"
-#include <pthread.h>
-#include <sys/time.h>
+# include "stdio.h"
+# include "unistd.h"
+# include <pthread.h>
+# include <sys/time.h>
 # include <string.h>
 # include <stdbool.h>
-#include "stdlib.h"
+# include "stdlib.h"
 
 typedef struct s_philospher t_philosophers;
 typedef struct s_rules
