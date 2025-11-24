@@ -6,7 +6,7 @@
 /*   By: nour <nour@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 12:08:42 by nfakih            #+#    #+#             */
-/*   Updated: 2025/11/23 15:36:16 by nour             ###   ########.fr       */
+/*   Updated: 2025/11/23 19:02:12 by nour             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ t_philosophers	*new_philo(t_rules in, int i, t_philosophers *philo)
 
 	philo->index = i;
 	philo->alive = true;
-	philo->ate = false;
 	philo->left = NULL;
 	philo->right = NULL;
 	return (philo);
@@ -113,7 +112,6 @@ t_rules	*init_in()
 	in->t_to_die = 0;
 	in->t_to_eat = 0;
 	in->t_to_sleep = 0;
-	in->t_start = 0;
 	in->must_eat = 0;
 	in->finish_all = 0;
 	return (in);

@@ -6,7 +6,7 @@
 /*   By: nour <nour@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 15:47:09 by nfakih            #+#    #+#             */
-/*   Updated: 2025/11/23 15:36:38 by nour             ###   ########.fr       */
+/*   Updated: 2025/11/23 19:50:37 by nour             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void philo(t_rules *in)
 	num = in->num;
     philos = init_philo(in);
 	i = 0;
+    pthread_create(&in->monitor, NULL, monitor_routine, in);
 	if (num == 0)
 	{
 		pthread_create(&philos[i]->thread, NULL, philos_routine, &philos[i]);
@@ -50,4 +51,3 @@ int main(int argc, char **argv)
     philo(in);
     return (0);
 }
-i 
