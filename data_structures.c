@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_structures.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nour <nour@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 12:08:42 by nfakih            #+#    #+#             */
-/*   Updated: 2025/11/23 19:02:12 by nour             ###   ########.fr       */
+/*   Updated: 2025/11/24 12:08:29 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	init_forks(t_rules *in)
 	int	i;
 
 	i = 0;
-	in->forks = malloc(sizeof(pthread_mutex_t) * in->num);
-	while (i < in->num)
+	in->forks = malloc(sizeof(pthread_mutex_t) * in->philo_amount);
+	while (i < in->philo_amount)
 	{
 		pthread_mutex_init(&in->forks[i], NULL);
 		i++;
@@ -37,7 +37,7 @@ void	init_forks(t_rules *in)
 int	fill_in(t_rules *in, char **argv)
 {
 	if (argv[1] && ft_atoi(argv[1]) > 0)
-		in->num = ft_atoi(argv[1]);
+		in->philo_amount = ft_atoi(argv[1]);
 	else
 		return (0);
 	if (argv[2] && ft_atoi(argv[2]) > 0)
@@ -58,61 +58,60 @@ int	fill_in(t_rules *in, char **argv)
 		return (0);
 	else
 		in->must_eat = -1;
-	in->start_time = get_time();
 	init_forks(in);
 	return (1);
 }
 
-t_philosophers	*new_philo(t_rules in, int i, t_philosophers *philo)
+t_philosophers	*new_philo(t_rules *rules, int i, t_philosophers *philo)
 {
 	t_rules	*rules;
 
 	philo->index = i;
 	philo->alive = true;
+	philo->last_meal = rules->start_time;
 	philo->left = NULL;
 	philo->right = NULL;
+	philo->meals = 0;
+	philo->rules = rules;
 	return (philo);
 }
 
-t_philosophers	**init_philo(t_rules *old)
+t_philosophers	**fill_philo(t_rules *rules)
 {
 	int				i;
 	t_philosophers **philos;
-	int				num;
-	t_rules			*in;
+	int				philo_amount;
     t_philosophers  *ph;
 
 	i = 0;
-	in = malloc(sizeof(t_rules));
-	num = old->num;
-	philos = malloc(sizeof(t_philosophers *) * num);
-	while (i < num)
+	philo_amount = rules->philo_amount;
+	philos = malloc(sizeof(t_philosophers *) * philo_amount);
+	while (i < philo_amount)
 	{
         ph = malloc(sizeof(t_philosophers));
-		philos[i] = new_philo(*in, i, ph);
-		philos[i]->rules = old;
+		philos[i] = new_philo(rules, i, ph);
 		i++;
 	}
 	i = 0;
-	while (i < num)
+	while (i < philo_amount)
 	{
-		philos[i]->left = &(in->forks)[i];
-		philos[i]->right = &(in->forks)[(i + 1) % num];
+		philos[i]->left = &(rules->forks)[i];
+		philos[i]->right = &(rules->forks)[(i + 1) % philo_amount];
 		i++;
 	}
 	return (philos);
 }
-
 t_rules	*init_in()
 {
 	t_rules	 *in;
 
 	in = malloc(sizeof(t_rules));
-	in->num = 0;
+	in->philo_amount = 0;
 	in->t_to_die = 0;
 	in->t_to_eat = 0;
 	in->t_to_sleep = 0;
 	in->must_eat = 0;
 	in->finish_all = 0;
+	in->start_time = get_time();
 	return (in);
 }

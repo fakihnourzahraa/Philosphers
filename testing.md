@@ -208,9 +208,9 @@ int main(int argc, char **argv)
     
     // Initialize philosophers
     print_separator("INITIALIZING PHILOSOPHERS");
-    printf("Calling init_philo()...\n");
-    philos = init_philo(rules);
-    printf("✓ init_philo() completed\n");
+    printf("Calling fill_philo()...\n");
+    philos = fill_philo(rules);
+    printf("✓ fill_philo() completed\n");
     
     // Test 2: Philosopher initialization
     test_philosopher_initialization(philos, rules);

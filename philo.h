@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nour <nour@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 12:08:50 by nfakih            #+#    #+#             */
-/*   Updated: 2025/11/23 19:48:44 by nour             ###   ########.fr       */
+/*   Updated: 2025/11/24 12:05:59 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 typedef struct s_philospher t_philosophers;
 typedef struct s_rules
 {
-	int				num;
+	int				philo_amount;
 	long long		t_to_die;
 	long long		t_to_eat;
 	long long		t_to_sleep;
@@ -57,8 +57,8 @@ void			*philos_routine(void *arg);
 long long		get_time();
 void			init_forks(t_rules *in);
 int				fill_in(t_rules *in, char **argv);
-t_philosophers	*new_philo(t_rules in, int i, t_philosophers *philo);
-t_philosophers	**init_philo(t_rules *old);
+t_philosophers	*new_philo(t_rules *rules, int i, t_philosophers *philo);
+t_philosophers	**fill_philo(t_rules *old);
 t_rules			*init_in(void);
 void			taking_fork(t_philosophers *philo, int s);
 void			thinking(t_philosophers *philo);
@@ -66,4 +66,7 @@ void			sleeping_philo(t_philosophers *philo);
 void			eating(t_philosophers *philo);
 void			releasing_fork(t_philosophers *philo, int s);
 void			dying(t_philosophers *philo);
+void			*single_routine(void *arg);
+void			*monitor_thread(void *arg);
+
 #endif
