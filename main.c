@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 15:47:09 by nfakih            #+#    #+#             */
-/*   Updated: 2025/11/24 12:12:54 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/11/24 13:44:58 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,14 @@ void philo(t_rules *in)
 
 	philo_amount = in->philo_amount;
     philos = fill_philo(in);
+	in->philos = philos;
 	i = 0;
     pthread_create(&in->monitor, NULL, monitor_thread, in);
 	if (philo_amount == 1)
 	{
 		pthread_create(&philos[i]->thread, NULL, single_routine, philos[i]);
+		pthread_join(philos[0]->thread, NULL);
+		pthread_join(in->monitor, NULL);
 		return ;
 	}
 	while (i < philo_amount)
@@ -50,11 +53,11 @@ int main(int argc, char **argv)
     in = init_in();
     if (!fill_in(in, argv))
         return (1);
-    printf("philo_amount: %d\n", in->philo_amount);
-    printf("t_to_die: %lld\n", in->t_to_die);
-    printf("t_to_eat: %lld\n", in->t_to_eat);
-    printf("t_to_sleep: %lld\n", in->t_to_sleep);
-    printf("must_eat: %d\n", in->must_eat);
+    // printf("philo_amount: %d\n", in->philo_amount);
+    // printf("t_to_die: %lld\n", in->t_to_die);
+    // printf("t_to_eat: %lld\n", in->t_to_eat);
+    // printf("t_to_sleep: %lld\n", in->t_to_sleep);
+    // printf("must_eat: %d\n", in->must_eat);
     philo(in);
     return (0);
 }

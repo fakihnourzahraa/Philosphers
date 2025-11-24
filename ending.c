@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ending.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nour <nour@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/23 19:46:06 by nour              #+#    #+#             */
-/*   Updated: 2025/11/23 19:49:18 by nour             ###   ########.fr       */
+/*   Updated: 2025/11/24 13:46:14 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,5 @@ void	dying(t_philosophers *philo)
 	time = get_time() - philo->rules->start_time;
 	printf("%lld %d died\n", time, philo->index);
 	pthread_mutex_unlock(philo->rules->print);
+	exit(1);
 }

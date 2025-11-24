@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 12:08:42 by nfakih            #+#    #+#             */
-/*   Updated: 2025/11/24 12:08:29 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/11/24 13:06:42 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,6 @@ int	fill_in(t_rules *in, char **argv)
 
 t_philosophers	*new_philo(t_rules *rules, int i, t_philosophers *philo)
 {
-	t_rules	*rules;
-
 	philo->index = i;
 	philo->alive = true;
 	philo->last_meal = rules->start_time;
@@ -113,5 +111,9 @@ t_rules	*init_in()
 	in->must_eat = 0;
 	in->finish_all = 0;
 	in->start_time = get_time();
+	in->print = malloc(sizeof(pthread_mutex_t));
+	pthread_mutex_init(in->print, NULL);
+	in->death = malloc(sizeof(pthread_mutex_t));
+	pthread_mutex_init(in->death, NULL);
 	return (in);
 }
