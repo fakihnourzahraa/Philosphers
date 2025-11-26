@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/23 19:50:47 by nour              #+#    #+#             */
-/*   Updated: 2025/11/26 16:55:02 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/11/26 17:41:05 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ void	*monitor_thread(void *arg)
 		pthread_mutex_lock(rules->death);
 		done = rules->finish_all;
 		pthread_mutex_unlock(rules->death);
-		
 		if (!done)
 		{
 			t_to_die_exceeded(rules);

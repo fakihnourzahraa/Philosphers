@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/15 14:55:36 by nfakih            #+#    #+#             */
-/*   Updated: 2025/11/26 16:58:28 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/11/26 17:43:56 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@ void	*philos_routine(void *arg)
 		pthread_mutex_lock(philo->rules->death);
 	}
 	pthread_mutex_unlock(philo->rules->death);
+	pthread_mutex_lock(philo->rules->print);
 	printf("wtf");
+		pthread_mutex_unlock(philo->rules->print);
 	dying(philo);
 	return (NULL);
 }
