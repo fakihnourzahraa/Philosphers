@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/23 19:50:47 by nour              #+#    #+#             */
-/*   Updated: 2025/11/26 17:41:05 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/11/26 18:21:38 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,26 @@ void	t_to_die_exceeded(t_rules *rules)
 	i = 0;
 	while (i < rules->philo_amount)
 	{
-
+		pthread_mutex_lock(rules->print);
 		time_since_last_meal = get_time() - rules->philos[i]->last_meal;
 		if (time_since_last_meal >= rules->t_to_die)
 		{
-			printf("T TO DIE EXCEEDED\n");
-			dying(rules->philos[i]);
+			// printf("T TO DIE EXCEEDED\n");
+			// dying(rules->philos[i]);
+			// return;
+		pthread_mutex_lock(rules->print);
+			printf("%lld %d died\n", 
+				get_time() - rules->start_time, 
+				rules->philos[i]->index);
+			pthread_mutex_unlock(rules->print);
+			
+			// Set finish_all flag
+			pthread_mutex_lock(rules->death);
+			rules->finish_all = 1;
+			pthread_mutex_unlock(rules->death);
 			return;
 		}
+			pthread_mutex_unlock(rules->print);
 		i++;
 	}
 }
@@ -62,8 +74,10 @@ void	all_have_eaten(t_rules *rules)
 
 	i = 0;
 	t = 0;
+	pthread_mutex_lock(rules->death);
 	while (rules->finish_all == 0 && i < rules->philo_amount)
 	{
+		pthread_mutex_unlock(rules->death);
 		pthread_mutex_lock(rules->print);		
 		if (rules->philos[i]->meals >= rules->must_eat)
 		{
@@ -88,6 +102,7 @@ void	*monitor_thread(void *arg)
 
 	done = 0;
 	rules = (t_rules *)arg;
+usleep(1000);
 	while (!done)
 	{
 		pthread_mutex_lock(rules->death);

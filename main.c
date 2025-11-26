@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 15:47:09 by nfakih            #+#    #+#             */
-/*   Updated: 2025/11/26 17:45:38 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/11/26 17:46:30 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,16 @@ void philo(t_rules *in)
     t_philosophers	**philos;
 	int				i;
 	int				philo_amount;
-	// char			*a;
-	// a = malloc(sizeof(char) * 2);
-	// a[0]= 0;
-	// a[1] = '\0';
+	char			*a;
+	a = malloc(sizeof(char) * 2);
+	a[0]= 0;
+	a[1] = '\0';
 
 	philo_amount = in->philo_amount;
     philos = fill_philo(in);
 	in->philos = philos;
 	i = 0;
+
     pthread_create(&in->monitor, NULL, monitor_thread, in);
 	if (philo_amount == 1)
 	{

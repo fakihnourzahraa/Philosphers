@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/15 14:55:36 by nfakih            #+#    #+#             */
-/*   Updated: 2025/11/26 17:43:56 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/11/26 18:17:07 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,27 +33,61 @@ void	*philos_routine(void *arg)
 	int				s;
 
 	philo = (t_philosophers *)arg;
-	pthread_mutex_lock(philo->rules->death);
-	while (philo->rules->finish_all == 0)
+	while (1)
 	{
+		// Check if simulation should stop
+		pthread_mutex_lock(philo->rules->death);
+		if (philo->rules->finish_all == 1)
+		{
+			pthread_mutex_unlock(philo->rules->death);
+			break;  // Just exit, don't call dying()
+		}
 		pthread_mutex_unlock(philo->rules->death);
+		
 		if (philo->index % 2 == 0)
 			s = 0;
 		else
 			s = 1;
-		//thinking(philo);
+		
 		taking_fork(philo, s);
 		taking_fork(philo, s + 2);
 		eating(philo);
 		releasing_fork(philo, s);
 		releasing_fork(philo, s + 2);
 		sleeping_philo(philo);
-		pthread_mutex_lock(philo->rules->death);
+		thinking(philo);
 	}
-	pthread_mutex_unlock(philo->rules->death);
-	pthread_mutex_lock(philo->rules->print);
-	printf("wtf");
-		pthread_mutex_unlock(philo->rules->print);
-	dying(philo);
 	return (NULL);
 }
+// void	*philos_routine(void *arg)
+// {
+// 	t_philosophers *philo;
+// 	int				s;
+
+// 	philo = (t_philosophers *)arg;
+// 	pthread_mutex_lock(philo->rules->death);
+// 	while (philo->rules->finish_all == 0)
+// 	{
+// 		pthread_mutex_unlock(philo->rules->death);
+// 		if (philo->index % 2 == 0)
+// 			s = 0;
+// 		else
+// 			s = 1;
+// 		//thinking(philo);
+// 		taking_fork(philo, s);
+// 		taking_fork(philo, s + 2);
+// 		eating(philo);
+// 		releasing_fork(philo, s);
+// 		releasing_fork(philo, s + 2);
+// 		sleeping_philo(philo);
+// 		pthread_mutex_lock(philo->rules->death);
+// 		printf("finish in:%d\n", philo->rules->finish_all);
+// 	}
+// 	printf("finish out:%d\n", philo->rules->finish_all);
+// 	pthread_mutex_unlock(philo->rules->death);
+// 	pthread_mutex_lock(philo->rules->print);
+// 	printf("wtf");
+// 	pthread_mutex_unlock(philo->rules->print);
+// 	dying(philo);
+// 	return (NULL);
+// }
