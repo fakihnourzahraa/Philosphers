@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/15 14:55:36 by nfakih            #+#    #+#             */
-/*   Updated: 2025/11/24 13:52:02 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/11/26 16:58:28 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	*philos_routine(void *arg)
 
 	philo = (t_philosophers *)arg;
 	pthread_mutex_lock(philo->rules->death);
-		pthread_mutex_unlock(philo->rules->death);
 	while (philo->rules->finish_all == 0)
 	{
 		pthread_mutex_unlock(philo->rules->death);
@@ -42,7 +41,7 @@ void	*philos_routine(void *arg)
 			s = 0;
 		else
 			s = 1;
-		thinking(philo);
+		//thinking(philo);
 		taking_fork(philo, s);
 		taking_fork(philo, s + 2);
 		eating(philo);
@@ -51,6 +50,8 @@ void	*philos_routine(void *arg)
 		sleeping_philo(philo);
 		pthread_mutex_lock(philo->rules->death);
 	}
+	pthread_mutex_unlock(philo->rules->death);
+	printf("wtf");
 	dying(philo);
 	return (NULL);
 }

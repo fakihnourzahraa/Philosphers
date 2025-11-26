@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/23 19:46:06 by nour              #+#    #+#             */
-/*   Updated: 2025/11/24 13:46:14 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/11/26 16:55:53 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,8 @@ void	dying(t_philosophers *philo)
 	time = get_time() - philo->rules->start_time;
 	printf("%lld %d died\n", time, philo->index);
 	pthread_mutex_unlock(philo->rules->print);
+	pthread_mutex_lock(philo->rules->death);
+	philo->rules->finish_all = 1;
+	pthread_mutex_unlock(philo->rules->death);
 	exit(1);
 }
