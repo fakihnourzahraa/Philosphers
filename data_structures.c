@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_structures.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nour <nour@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 12:08:42 by nfakih            #+#    #+#             */
-/*   Updated: 2025/11/24 13:06:42 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/11/24 19:58:37 by nour             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	fill_in(t_rules *in, char **argv)
 
 t_philosophers	*new_philo(t_rules *rules, int i, t_philosophers *philo)
 {
-	philo->index = i;
+	philo->index = i + 1;
 	philo->alive = true;
 	philo->last_meal = rules->start_time;
 	philo->left = NULL;
