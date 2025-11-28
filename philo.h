@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 12:08:50 by nfakih            #+#    #+#             */
-/*   Updated: 2025/11/26 17:47:58 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/11/28 19:01:34 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ typedef struct s_rules
 	long long		t_to_die;
 	long long		t_to_eat;
 	long long		t_to_sleep;
-	int				to_eat;
 	int				must_eat;
 	long long		start_time;
 	int				finish_all;
@@ -57,7 +56,7 @@ void			*philos_routine(void *arg);
 long long		get_time();
 void			init_forks(t_rules *in);
 int				fill_in(t_rules *in, char **argv);
-t_philosophers	*new_philo(t_rules *rules, int i, t_philosophers *philo);
+t_philosophers	*new_philo(t_rules *rules, int i);
 t_philosophers	**fill_philo(t_rules *old);
 t_rules			*init_in(void);
 void			taking_fork(t_philosophers *philo, int s);

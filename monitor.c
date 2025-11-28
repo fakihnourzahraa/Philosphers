@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/23 19:50:47 by nour              #+#    #+#             */
-/*   Updated: 2025/11/26 18:21:38 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/11/28 18:45:59 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ void	*monitor_thread(void *arg)
 
 	done = 0;
 	rules = (t_rules *)arg;
-usleep(1000);
 	while (!done)
 	{
 		pthread_mutex_lock(rules->death);
@@ -111,7 +110,7 @@ usleep(1000);
 		if (!done)
 		{
 			t_to_die_exceeded(rules);
-			if (rules->must_eat != -1)
+			if (rules->must_eat != -1) 
 				all_have_eaten(rules);
 			usleep(1000);
 		}

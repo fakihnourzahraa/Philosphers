@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_structures.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nour <nour@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 12:08:42 by nfakih            #+#    #+#             */
-/*   Updated: 2025/11/24 19:58:37 by nour             ###   ########.fr       */
+/*   Updated: 2025/11/28 19:01:41 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,11 @@ int	fill_in(t_rules *in, char **argv)
 	return (1);
 }
 
-t_philosophers	*new_philo(t_rules *rules, int i, t_philosophers *philo)
+t_philosophers	*new_philo(t_rules *rules, int i)
 {
+	t_philosophers *philo;
+
+	philo = malloc (sizeof(t_philosophers));
 	philo->index = i + 1;
 	philo->alive = true;
 	philo->last_meal = rules->start_time;
@@ -79,15 +82,13 @@ t_philosophers	**fill_philo(t_rules *rules)
 	int				i;
 	t_philosophers **philos;
 	int				philo_amount;
-    t_philosophers  *ph;
 
 	i = 0;
 	philo_amount = rules->philo_amount;
 	philos = malloc(sizeof(t_philosophers *) * philo_amount);
 	while (i < philo_amount)
 	{
-        ph = malloc(sizeof(t_philosophers));
-		philos[i] = new_philo(rules, i, ph);
+		philos[i] = new_philo(rules, i);
 		i++;
 	}
 	i = 0;
@@ -108,7 +109,7 @@ t_rules	*init_in()
 	in->t_to_die = 0;
 	in->t_to_eat = 0;
 	in->t_to_sleep = 0;
-	in->must_eat = 0;
+	in->must_eat = -1;
 	in->finish_all = 0;
 	in->start_time = get_time();
 	in->print = malloc(sizeof(pthread_mutex_t));
@@ -117,3 +118,6 @@ t_rules	*init_in()
 	pthread_mutex_init(in->death, NULL);
 	return (in);
 }
+	// pthread_t		monitor;
+	// t_philosophers	**philos;
+	// pthread_mutex_t *forks;

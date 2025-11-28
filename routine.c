@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   routine.c                                          :+:      :+:    :+:   */
+/*   my_routine.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/15 14:55:36 by nfakih            #+#    #+#             */
-/*   Updated: 2025/11/26 18:17:07 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/11/28 19:10:48 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,17 @@ void	*philos_routine(void *arg)
 	philo = (t_philosophers *)arg;
 	while (1)
 	{
-		// Check if simulation should stop
 		pthread_mutex_lock(philo->rules->death);
 		if (philo->rules->finish_all == 1)
 		{
 			pthread_mutex_unlock(philo->rules->death);
-			break;  // Just exit, don't call dying()
+			break;
 		}
 		pthread_mutex_unlock(philo->rules->death);
-		
 		if (philo->index % 2 == 0)
 			s = 0;
 		else
 			s = 1;
-		
 		taking_fork(philo, s);
 		taking_fork(philo, s + 2);
 		eating(philo);
