@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/15 14:55:36 by nfakih            #+#    #+#             */
-/*   Updated: 2025/11/30 19:43:09 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/11/30 20:06:17 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,10 @@ void	*philos_routine(void *arg)
 		else
 			s = 1;
 		taking_forks(philo, s);
+		taking_forks(philo, s + 2);
 		eating(philo);
 		releasing_forks(philo, s);
+		releasing_forks(philo, s + 2);
 		sleeping_philo(philo);
 		thinking(philo);
 	}
