@@ -6,24 +6,69 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/23 19:46:25 by nour              #+#    #+#             */
-/*   Updated: 2025/11/26 17:55:09 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/11/30 19:44:15 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	taking_fork(t_philosophers *philo, int s)
+void	print_status(t_philosophers *philo, char *statement)
 {
 	long long	time;
+
+	pthread_mutex_lock(philo->rules->print);
+	pthread_mutex_lock(philo->rules->death);
+	if (philo->rules->finish_all == 1)
+	{
+		time = get_time() - philo->rules->start_time;
+		printf("%lld %d %s\n", time, philo->index, statement);
+	}
+
+	pthread_mutex_unlock(philo->rules->print);
+	pthread_mutex_unlock(philo->rules->death);
+}
+void	taking_forks(t_philosophers *philo, int s)
+{
+	long long	time;
+	int			first;
+	int			second;
 	
 	if (s == 0 || s == 3)
-		pthread_mutex_lock(philo->left);
+	{
+		first = pthread_mutex_lock(philo->left);
+		second = pthread_mutex_lock(philo->right);
+	}
 	else
-		pthread_mutex_lock(philo->right);
-	pthread_mutex_lock(philo->rules->print);
+	{
+		first = pthread_mutex_lock(philo->right);
+		second = pthread_mutex_lock(philo->left);
+	}
 	time = get_time() - philo->rules->start_time;
-	printf("%lld %d has taken a fork\n", time, philo->index);
-	pthread_mutex_unlock(philo->rules->print);
+	if (first == 0)
+		print_status(philo, "has taken a fork");
+	if (second == 0)
+		print_status(philo, "has taken a fork");
+	if (first != 0 || second != 0)
+		releasing_forks(philo, s);
+}
+void	releasing_forks(t_philosophers *philo, int s)
+{
+	int	first;
+	int	second;
+	if (s == 0 || s == 3)
+	{
+		first = pthread_mutex_lock(philo->left);
+		second = pthread_mutex_lock(philo->right);
+	}
+	else
+	{
+		first = pthread_mutex_lock(philo->right);
+		second = pthread_mutex_lock(philo->left);
+	}
+	if (first == 0)
+		print_status(philo, "has released a fork");
+	if (second == 0)
+		print_status(philo, "has released a fork");
 }
 
 void	thinking(t_philosophers *philo)
@@ -59,13 +104,4 @@ void	eating(t_philosophers *philo)
 	philo->meals = philo->meals + 1;
 	pthread_mutex_unlock(philo->rules->print);
 	usleep(philo->rules->t_to_eat * 1000);
-}
-void	releasing_fork(t_philosophers *philo, int s)
-{
-	long long time;
-	
-	if (s == 0 || s == 3)
-		pthread_mutex_unlock(philo->left);
-	else if (s == 1 || s == 2)
-		pthread_mutex_unlock(philo->right);
 }

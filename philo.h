@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 12:08:50 by nfakih            #+#    #+#             */
-/*   Updated: 2025/11/28 19:01:34 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/11/30 19:41:41 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,11 @@ int				fill_in(t_rules *in, char **argv);
 t_philosophers	*new_philo(t_rules *rules, int i);
 t_philosophers	**fill_philo(t_rules *old);
 t_rules			*init_in(void);
-void			taking_fork(t_philosophers *philo, int s);
+void			taking_forks(t_philosophers *philo, int s);
 void			thinking(t_philosophers *philo);
 void			sleeping_philo(t_philosophers *philo);
 void			eating(t_philosophers *philo);
-void			releasing_fork(t_philosophers *philo, int s);
+void			releasing_forks(t_philosophers *philo, int s);
 void			dying(t_philosophers *philo);
 void			*single_routine(void *arg);
 void			*monitor_thread(void *arg);

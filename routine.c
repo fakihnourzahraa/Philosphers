@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   my_routine.c                                       :+:      :+:    :+:   */
+/*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/15 14:55:36 by nfakih            #+#    #+#             */
-/*   Updated: 2025/11/28 19:10:48 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/11/30 19:43:09 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,9 @@ void	*philos_routine(void *arg)
 			s = 0;
 		else
 			s = 1;
-		taking_fork(philo, s);
-		taking_fork(philo, s + 2);
+		taking_forks(philo, s);
 		eating(philo);
-		releasing_fork(philo, s);
-		releasing_fork(philo, s + 2);
+		releasing_forks(philo, s);
 		sleeping_philo(philo);
 		thinking(philo);
 	}
