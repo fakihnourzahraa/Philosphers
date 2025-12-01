@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nour <nour@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/23 19:50:47 by nour              #+#    #+#             */
-/*   Updated: 2025/11/28 18:45:59 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/12/01 15:48:29 by nour             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	t_to_die_exceeded(t_rules *rules)
 	{
 		pthread_mutex_lock(rules->print);
 		time_since_last_meal = get_time() - rules->philos[i]->last_meal;
+		pthread_mutex_unlock(rules->print);
 		if (time_since_last_meal >= rules->t_to_die)
 		{
 			// printf("T TO DIE EXCEEDED\n");
@@ -55,8 +56,6 @@ void	t_to_die_exceeded(t_rules *rules)
 				get_time() - rules->start_time, 
 				rules->philos[i]->index);
 			pthread_mutex_unlock(rules->print);
-			
-			// Set finish_all flag
 			pthread_mutex_lock(rules->death);
 			rules->finish_all = 1;
 			pthread_mutex_unlock(rules->death);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nour <nour@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 12:08:50 by nfakih            #+#    #+#             */
-/*   Updated: 2025/11/30 19:41:41 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/12/01 15:53:54 by nour             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,6 @@ void			releasing_forks(t_philosophers *philo, int s);
 void			dying(t_philosophers *philo);
 void			*single_routine(void *arg);
 void			*monitor_thread(void *arg);
+void			print_status(t_philosophers *philo, char *statement);
 
 #endif
