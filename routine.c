@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nour <nour@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/15 14:55:36 by nfakih            #+#    #+#             */
-/*   Updated: 2025/12/01 16:10:32 by nour             ###   ########.fr       */
+/*   Updated: 2025/12/05 16:54:21 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	*philos_routine(void *arg)
 	int				s;
 
 	philo = (t_philosophers *)arg;
+	if (philo->rules->philo_amount % 2 == 1 && philo->index == philo->rules->philo_amount)
+		usleep(philo->rules->t_to_eat * 1000);
 	while (1)
 	{
 		pthread_mutex_lock(philo->rules->death);
