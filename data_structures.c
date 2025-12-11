@@ -6,13 +6,13 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 12:08:42 by nfakih            #+#    #+#             */
-/*   Updated: 2025/11/28 19:01:41 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/12/11 21:12:29 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long long	get_time()
+long long	get_time(void)
 {
 	long long		t;
 	struct timeval	tv;
@@ -21,6 +21,7 @@ long long	get_time()
 	t = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
 	return (t);
 }
+
 void	init_forks(t_rules *in)
 {
 	int	i;
@@ -64,9 +65,9 @@ int	fill_in(t_rules *in, char **argv)
 
 t_philosophers	*new_philo(t_rules *rules, int i)
 {
-	t_philosophers *philo;
+	t_philosophers	*philo;
 
-	philo = malloc (sizeof(t_philosophers));
+	philo = malloc(sizeof(t_philosophers));
 	philo->index = i + 1;
 	philo->alive = true;
 	philo->last_meal = rules->start_time;
@@ -80,7 +81,7 @@ t_philosophers	*new_philo(t_rules *rules, int i)
 t_philosophers	**fill_philo(t_rules *rules)
 {
 	int				i;
-	t_philosophers **philos;
+	t_philosophers	**philos;
 	int				philo_amount;
 
 	i = 0;
@@ -100,9 +101,10 @@ t_philosophers	**fill_philo(t_rules *rules)
 	}
 	return (philos);
 }
-t_rules	*init_in()
+
+t_rules	*init_in(void)
 {
-	t_rules	 *in;
+	t_rules	*in;
 
 	in = malloc(sizeof(t_rules));
 	in->philo_amount = 0;
@@ -112,12 +114,10 @@ t_rules	*init_in()
 	in->must_eat = -1;
 	in->finish_all = 0;
 	in->start_time = get_time();
+	in->forks = NULL;
 	in->print = malloc(sizeof(pthread_mutex_t));
 	pthread_mutex_init(in->print, NULL);
 	in->death = malloc(sizeof(pthread_mutex_t));
 	pthread_mutex_init(in->death, NULL);
 	return (in);
 }
-	// pthread_t		monitor;
-	// t_philosophers	**philos;
-	// pthread_mutex_t *forks;
