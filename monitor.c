@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/23 19:50:47 by nour              #+#    #+#             */
-/*   Updated: 2025/12/11 22:07:32 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/12/11 22:16:22 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ void	all_have_eaten(t_rules *rules)
 	pthread_mutex_unlock(rules->death);
 	if (t == rules->philo_amount)
 	{
-		printf("ALL ATE \n");
 		pthread_mutex_lock(rules->death);
 		rules->finish_all = 1;
 		pthread_mutex_unlock(rules->death);
@@ -109,3 +108,4 @@ void	*monitor_thread(void *arg)
 	}
 	return (NULL);
 }
+//checks every 1 ms, dont remove usleep

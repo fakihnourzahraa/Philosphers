@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 12:59:34 by nfakih            #+#    #+#             */
-/*   Updated: 2025/12/11 22:05:32 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/12/11 22:09:52 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ int	ft_atoi(char *n)
 	unsigned long		ans;
 	int					s;
 	int					pow;
-	char				*n;
 
 	s = 1;
 	ans = 0;

@@ -3,8 +3,8 @@ NAME    = philo
 SRC = main.c data_structures.c ending.c ft_atoi.c monitor.c operations.c routine.c
 OBJ     = $(SRC:.c=.o)
 
-CC      = cc -Wall -Werror -Wextra
-CFLAGS  = 
+CC      = cc
+CFLAGS  =  -Wall -Werror -Wextra
 
 all: $(NAME)
 
@@ -27,4 +27,4 @@ re: fclean all
 
 ex: all clean
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re ex
