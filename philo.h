@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 12:08:50 by nfakih            #+#    #+#             */
-/*   Updated: 2025/12/11 21:01:41 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/12/11 22:05:41 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct s_philospher
 	t_rules			*rules;
 }	t_philosophers;
 
-int				ft_atoi(const char *nptr);
+int				ft_atoi(char *nptr);
 void			*philos_routine(void *arg);
 long long		get_time(void);
 void			init_forks(t_rules *in);

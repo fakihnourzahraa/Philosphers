@@ -6,21 +6,11 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 12:08:42 by nfakih            #+#    #+#             */
-/*   Updated: 2025/12/11 21:12:29 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/12/11 21:50:29 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-long long	get_time(void)
-{
-	long long		t;
-	struct timeval	tv;
-
-	gettimeofday(&tv, NULL);
-	t = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
-	return (t);
-}
 
 void	init_forks(t_rules *in)
 {

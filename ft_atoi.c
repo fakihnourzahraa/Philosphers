@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 12:59:34 by nfakih            #+#    #+#             */
-/*   Updated: 2025/11/14 15:47:23 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/12/11 22:05:32 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,23 @@ static int	iswhite(char *nptr)
 	return (0);
 }
 
-int	ft_atoi(const char *nptr)
+int	check_philo(char *nptr)
+{
+	int	i;
+
+	i = 0;
+	while (nptr[i] != '\0')
+	{
+		if (!((nptr[i] >= '0' && nptr[i] <= '9') || iswhite(&nptr[i])))
+		{
+			return (0);
+		}
+		i++;
+	}
+	return (1);
+}
+
+int	ft_atoi(char *n)
 {
 	unsigned long		ans;
 	int					s;
@@ -46,7 +62,8 @@ int	ft_atoi(const char *nptr)
 
 	s = 1;
 	ans = 0;
-	n = (char *)nptr;
+	if (check_philo(n) == 0)
+		return (0);
 	while (iswhite(n))
 		n++;
 	if (*n == '-' || *n == '+')

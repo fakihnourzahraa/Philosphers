@@ -6,11 +6,25 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 15:47:09 by nfakih            #+#    #+#             */
-/*   Updated: 2025/12/11 21:11:11 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/12/11 22:06:02 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	tie(t_philosophers **philos, t_rules *in, int philo_amount)
+{
+	int	i;
+
+	i = 0;
+	while (i < philo_amount)
+	{
+		pthread_join(philos[i]->thread, NULL);
+		i++;
+	}
+	pthread_join(in->monitor, NULL);
+	kill_philo(philos);
+}
 
 void	philo(t_rules *in)
 {
@@ -36,14 +50,7 @@ void	philo(t_rules *in)
 		pthread_create(&philos[i]->thread, NULL, philos_routine, philos[i]);
 		i++;
 	}
-	i = 0;
-	while (i < philo_amount)
-	{
-		pthread_join(philos[i]->thread, NULL);
-		i++;
-	}
-	pthread_join(in->monitor, NULL);
-	kill_philo(philos);
+	tie(philos, in, philo_amount);
 }
 
 int	main(int argc, char **argv)
